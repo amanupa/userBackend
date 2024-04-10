@@ -1,6 +1,6 @@
 const express=require('express');
-const {getUser,getAllUser,updateUser, deleteUser,getCookies,setCookies,}=require('../controller/usercontroller.js');
-const {signup,login,isAuthorised,protectRoute} = require('../controller/authcontroller.js');
+const {getUser,getAllUser,updateUser, deleteUser,}=require('../controller/usercontroller');//getCookies,setCookies,
+const {signup,login,isAuthorised,protectRoute} = require('../controller/authcontroller');
 const app=express();
 //* creating a variable of Router
 const userRouter=express.Router();
@@ -14,17 +14,17 @@ userRouter
 .delete(deleteUser);
 
 // user profile
-userRouter.use(protectRoute);
+//userRouter.use(protectRoute);
 userRouter
 .route('/userProfile/:id')
 .get(getUser)
 
 // admin specific function
-userRouter.use(isAuthorised(['admin']));
+//userRouter.use(isAuthorised(['admin']));
 userRouter
 .route('/')
 .get(getAllUser);
-
+/*
 // cookies
 userRouter
 .route("/getCookies")
@@ -33,7 +33,7 @@ userRouter
 userRouter
 .route("/setCookies")
 .get(setCookies);
-
+*/
 userRouter
 .route('/signup')
 .post(signup);

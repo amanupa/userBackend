@@ -7,7 +7,7 @@ const mongoose=require('mongoose');
 
 
 //* creating a variable to store the database link
-const db_link="mongodb://127.0.0.1:27017/userDataBase";
+const db_link="mongodb+srv://admin:TDyujcYKuJmHcQKV@cluster0.cful9cc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 
 //* to connect to the mongodb server

@@ -3,7 +3,7 @@
 const express=require('express');
 const app=express();
 const mongoose=require('mongoose');
-const cookieParser=require('cookie-parser');
+//const cookieParser=require('cookie-parser');
 
 
 
@@ -13,8 +13,10 @@ app.use(express.json());//* it is used to convert the json data into the form of
 //app.use(express.urlencoded({extended: true}));
 
 //* listioning the server on the port 3000
-app.listen(3000);
-app.use(cookieParser());
+app.listen(4000,()=>{
+    console.log('listioning on port 4000');
+});
+//app.use(cookieParser());
 
 
 //* creating a variable of Router
@@ -22,6 +24,6 @@ const userRouter=require('./routers/userRouter');
 //const authRouter=require('./routers/authRouter.js');
 
 //*base route , router to use
-app.use('/users',userRouter);
+app.use('/user',userRouter);
 //app.use('/auth',authRouter);
 

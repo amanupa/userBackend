@@ -70,7 +70,7 @@ module.exports.deleteUser =async function deleteUser(req, res) {
     }
 }
 
-module.exports.setCookies= function setCookies(req,res){
+/*module.exports.setCookies= function setCookies(req,res){
     //res.setHeader('set-cookie','isLoggedIn=true');
    res.cookie('isLoggedIn',false,{maxAge:1000*60*60*24,secure:true, httpOnly:true});
     res.send("cookies has been set");
@@ -81,7 +81,7 @@ module.exports.getCookies= function getCookies(req,res){
     console.log(cookies);
     res.send('cookies recieved');
 
-}
+}*/
 
 module.exports.getAllUser=async function getAllUser(req,res){
     let users= await userModel.find();
