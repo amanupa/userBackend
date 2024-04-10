@@ -7,7 +7,7 @@ const mongoose=require('mongoose');
 
 
 //* creating a variable to store the database link
-const db_link="mongodb+srv://admin:TDyujcYKuJmHcQKV@cluster0.cful9cc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const db_link="your_db_link";
 
 
 //* to connect to the mongodb server
@@ -83,7 +83,7 @@ userSceema.pre('save',function(){
    // console.log(hashedString);
    this.password=hashedString;
 });*/
-
+/*
 // by using the node js built in crypto module to hash the password/anything without using third party library
 userSceema.pre('save', async function() {
     const salt = crypto.randomBytes(8).toString('hex');//* 16 is the length to generate random bytes we can use any no. but a general use is factor of 8
@@ -93,7 +93,7 @@ userSceema.pre('save', async function() {
     this.password = hash;
 });
 
-
+*/
 //Todo userModel
 //* to use that scheema we have to create the model 
 const userModel=mongoose.model('userModel',userSceema);// by using the .model property of the mongeese we can create the model this property takes two parameter. 

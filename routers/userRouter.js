@@ -1,3 +1,4 @@
+//!TODO: always make sure the sequence (execution will be done from top to bottom so write the function accordingly)
 const express=require('express');
 const {getUser,getAllUser,updateUser, deleteUser,}=require('../controller/usercontroller');//getCookies,setCookies,
 const {signup,login,isAuthorised,protectRoute} = require('../controller/authcontroller');
@@ -13,14 +14,23 @@ userRouter
 .route('/deleteUser/:id')
 .delete(deleteUser);
 
+userRouter
+.route('/signup')
+.post(signup);
+
+userRouter
+.route('/login')
+.post(login);
+
+
 // user profile
-//userRouter.use(protectRoute);
+userRouter.use(protectRoute);
 userRouter
 .route('/userProfile/:id')
 .get(getUser)
 
 // admin specific function
-//userRouter.use(isAuthorised(['admin']));
+userRouter.use(isAuthorised(['admin']));
 userRouter
 .route('/')
 .get(getAllUser);
@@ -34,13 +44,6 @@ userRouter
 .route("/setCookies")
 .get(setCookies);
 */
-userRouter
-.route('/signup')
-.post(signup);
-
-userRouter
-.route('/login')
-.post(login);
 
 
 

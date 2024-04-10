@@ -19,7 +19,7 @@ module.exports.login = async function login(req,res){
                // res.cookie('isLoggedIn',true,{httpOnly:true});// here we are seeting the cookie to set if user is logged in or not 
                let uid=user['_id']; //uid (it is the payload)
                let token=jwt.sign({payload:uid},JWT_KEY);//creating the jwt (in this function it is taking three parameters first one is payload, second one is the secret key and third one is the algorithm but if we are not providing any algorithm then by default it take the HS256 hashing algorithm to generate the token(hash value))
-               res.cookie('login',token,);//before we are using the true or false keyword nut now we are using the jwt token(to store in the cookies)
+               res.cookie('login',token,{httpOnly:true});//before we are using the true or false keyword nut now we are using the jwt token(to store in the cookies)
                return res.json({//{httpOnly:true}
                     message:"user logged in successfully",
                     userDetails:data,
@@ -86,22 +86,9 @@ module.exports.signup= async function signup(req,res){
     
 }
 //TODO: after successfully creatin/storing the data in the mongodb the mongo will automatically assign the unique id to the object and when we will console the data we can see that this unique id.
-/*
-//* authorization function to check the user role
-module.exports.isAuthorised= function isAuthorised(role){
-    return function(req,res,next){
-        if(role.include(req.role)==true){
-           return next();
-        }else{
-            response.status(401).json({
-                message:"only admin is allowed",
-            })
-        }
 
-    }
 
-}*/
-/*
+
 //* protect route
 module.exports.protectRoute=async function protectRoute(req,res,next){
     try{
@@ -111,9 +98,10 @@ module.exports.protectRoute=async function protectRoute(req,res,next){
            token=req.cookies.login;
         // here we are using the verify mathod of jwt to verify the new generated signature and the previously generated signature if both same then the user is same otherwise not
         let payload=jwt.verify(token,JWT_KEY);//req.cookies.login is the jwt which we get by the backend
+        console.log("payload",payload);
 
         if(payload){
-            const user=await userModel.findbyId(payload.payload);
+            const user=await userModel.findById(payload.payload);
             req.role=user.role;
             req.id=user.id;
            return next();
@@ -126,6 +114,10 @@ module.exports.protectRoute=async function protectRoute(req,res,next){
         }
         
 
+    }else{
+       return res.json({
+            message:"Please login",
+        })
     }
 
     }catch(err){
@@ -136,4 +128,19 @@ module.exports.protectRoute=async function protectRoute(req,res,next){
 
 
 };
-*/
+
+
+//* authorization function to check the user role
+module.exports.isAuthorised= function isAuthorised(role){
+    return function(req,res,next){
+        if(role.includes(req.role)==true){
+           return next();
+        }else{
+            res.status(401).json({
+                message:"only admin is allowed",
+            })
+        }
+
+    }
+
+}
