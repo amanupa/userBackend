@@ -3,12 +3,8 @@ const bcrypt=require('bcrypt');
 const crypto = require('crypto');
 const mongoose=require('mongoose');
 
-
-
-
 //* creating a variable to store the database link
 const db_link="your_db_link";
-
 
 //* to connect to the mongodb server
 mongoose.connect(db_link)
@@ -20,6 +16,7 @@ mongoose.connect(db_link)
     console.log(err);
 });
 
+//* userSceema 
 const userSceema= mongoose.Schema({
     name:{
         type:String,

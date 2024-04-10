@@ -1,12 +1,7 @@
 const express=require('express');
 const userModel=require('../models/usermodel');
 const jwt =require('jsonwebtoken');// importing the third party library jwt from npm package
-const JWT_KEY='aman6777secretkey01';// creating a variable for the secret key the strig is the random 
-
-/*module.exports.middleware = function middleware(req,res,next){//the middleware function 
-    console.log("middleware encountered");
-    next();
-}*/
+const JWT_KEY='your_secret_key';// creating a variable for the secret key the strig is the random 
 
 //* function to loogin the user
 module.exports.login = async function login(req,res){
