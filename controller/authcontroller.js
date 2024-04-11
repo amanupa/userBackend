@@ -110,6 +110,13 @@ module.exports.protectRoute=async function protectRoute(req,res,next){
         
 
     }else{
+        //to check from where the request is coming browser or snapshot
+        let client =req.get('User-Agent');
+        if(client.includes("mozilla")==true){
+            //herer if the user from the browser then i am redirection the user to the login page
+            return res.redirect('/login');
+
+        }
        return res.json({
             message:"Please login",
         })
@@ -137,5 +144,82 @@ module.exports.isAuthorised= function isAuthorised(role){
         }
 
     }
+
+}
+
+//* forgot password
+
+module.exports.forgotPassword=async function forgotPassword(req,res,next){
+    let {email}=req.body;
+    try{
+        const user=await userModel.findOne({email:email});
+        if(user){
+            //read the docs part from mongoosejs.com/docs/guide.html(schemas)
+            const resetToken=user.createResetToken();
+            //creating the link for the reset password
+            // http://abc.com/resetPassword/resetToken
+            let resetPasswordLink= `${req.protocol}://${req.get('host')}/resetPassword/${resetToken}`;
+            //send mail to the user using nodemailer
+
+        }else{
+            return res.status(401).json({
+                message:"user not found",
+                data:email
+            })
+        }
+
+
+    }catch(err){
+        res.status(500).json({
+            message:err.message,
+        })
+
+    }
+}
+
+//* reset password
+
+module.exports.resetPassword= async function resetPassword(req,res){
+    try{
+        const token=req.params.token;
+    let {password, confirmPassword}=req.body;
+    const user=await userModel.findOne({resetToken:token});
+    if(user){
+        //resetPasswordHandler will update the user password in db
+        user.resetPasswordHandler(password,confirmPassword);
+        await user.save();
+        res.json({
+            message:"user password updated successfully, please login agian",
+        })
+    }else{
+        res.json({
+            message:"user not found",
+        })
+    }
+
+    }catch(err){
+        res.json({
+            message:err.message,
+        })
+    }
+    
+}
+
+//* logout function 
+//we can also redirect to the login page after successfully logout 
+module.exports.logout=function logout(req,res){
+    try{//here it is taking 4 arguements as a parameter 1.>existing cookie name , 2.> we are overriding the value of cookie login by a empty string, 3.> ther are many option available but here we are defining the max age which takes value in milisecond after that the cookie will be removed from the cookies section
+        res.cookie('login',' ',{maxAge:1});
+        res.json({
+        message:"user logged out successfully",
+    });
+
+    }catch(err){
+        res.json({
+            message:err.message,
+        });
+
+    }
+    
 
 }

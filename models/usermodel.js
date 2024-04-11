@@ -52,7 +52,8 @@ const userSceema= mongoose.Schema({
     profile:{
         type:String,
         default:'img/users/default.jpeg',
-    }
+    },
+    resetToken:String,
 });
 
 //Todo Hooks 
@@ -72,6 +73,24 @@ userSceema.pre('save',function(){
     return this.confirmPassword=undefined;
 })
 
+
+//* attaching the function to the sceema 
+userSceema.methods.createResetToken=function(){
+    // to generate the uniqe token we use the npm package crypto
+    const resetToken=crypto.randomBytes(32).toString("hex");
+    this.resetToken=resetToken;
+    return resetToken;
+}
+
+//* attaching the function(resetPasswordHandler) to the sceema 
+
+userSceema.methods.resetPasswordHandler=function(password,confirmPassword){
+    this.password=password;
+    this.confirmPassword=confirmPassword;
+    this.resetToken=undefined;
+
+
+}
 //TODO Hashing 
 // to hashed the password for security by using the third party libraries (bcrypt)
 /*userSceema.pre('save',async function(){

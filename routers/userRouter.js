@@ -1,7 +1,7 @@
 //!TODO: always make sure the sequence (execution will be done from top to bottom so write the function accordingly)
 const express=require('express');
 const {getUser,getAllUser,updateUser, deleteUser,}=require('../controller/usercontroller');//getCookies,setCookies,
-const {signup,login,isAuthorised,protectRoute} = require('../controller/authcontroller');
+const {signup,login,isAuthorised,protectRoute,forgotPassword,resetPassword,logout} = require('../controller/authcontroller');
 const app=express();
 //* creating a variable of Router
 const userRouter=express.Router();
@@ -21,6 +21,18 @@ userRouter
 userRouter
 .route('/login')
 .post(login);
+
+userRouter
+.route('/forgotPassword')
+.post(forgotPassword);
+
+userRouter
+.route('/resetPassword/:token')
+.post(resetPassword);
+
+userRouter
+.route('/logout')
+.get(logout);
 
 
 // user profile
