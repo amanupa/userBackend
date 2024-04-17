@@ -22,8 +22,13 @@ app.use(cookieParser());
 //* creating a variable of Router
 const userRouter=require('./routers/userRouter');
 //const authRouter=require('./routers/authRouter.js');
-
+const planRouter=require('./routers/planRouter');
+const reviewRouter=require('./routers/reviewRouter');
 //*base route , router to use
 app.use('/user',userRouter);
+app.use('/plans',planRouter);
+app.use('/review',reviewRouter);
 //app.use('/auth',authRouter);
+
+//const usersPlanModel=require('./models/planmodel');
 

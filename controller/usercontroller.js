@@ -1,6 +1,7 @@
 const express=require('express');
 const userModel=require('../models/usermodel.js');
-const protectRoute=require('../controller/authcontroller.js');
+//const protectRoute=require('../controller/authcontroller.js');
+//const usersPlanModel=require('../models/planmodel.js');
 
 
 
@@ -93,7 +94,10 @@ module.exports.getAllUser=async function getAllUser(req,res){
 
     }
     
-}
+};
+
+
+
 
 /*userRouter
 .route('/:id')

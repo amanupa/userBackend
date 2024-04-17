@@ -1,7 +1,7 @@
 const express=require('express');
 const userModel=require('../models/usermodel');
 const jwt =require('jsonwebtoken');// importing the third party library jwt from npm package
-const JWT_KEY='your_secret_key';// creating a variable for the secret key the strig is the random 
+const JWT_KEY='random_secret_key';// creating a variable for the secret key the strig is the random 
 
 //* function to loogin the user
 module.exports.login = async function login(req,res){
