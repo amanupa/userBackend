@@ -7,6 +7,7 @@ const cookieParser=require('cookie-parser');
 
 
 
+
 //! act as middleware for post function , it is used when data is comming from the frontend to the server so it is used to convert the data in the form of json
 app.use(express.json());//* it is used to convert the json data into the form of javascript objects, it is global middleware function
 

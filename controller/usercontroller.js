@@ -25,6 +25,11 @@ module.exports.getUser= async function getUser(req,res){{
  
 }}
 
+module.exports.updateProfileImage=function updateProfileImage(req,res){
+    res.json({
+        message:"file uploaded successfuly",
+    })
+}
 
 
 
